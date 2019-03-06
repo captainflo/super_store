@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require ("inquirer");
+var CFonts = require('cfonts');
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -18,6 +19,10 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
+  CFonts.say("superstore\nCustomer\naccess", {
+    font: 'chrome',   
+    colors: ['white'],   
+});
   readProducts();
 });
 
@@ -82,8 +87,10 @@ function checkStock(idSelect,quantitySelect){
         currentStock = res[0].Stock_quantity;
        if(currentStock >quantitySelect){
         console.log("Enough product in the store ("+currentStock+")\n");
+        var priceSales = res[0].price *  quantitySelect;
         var newQuantity = (currentStock - quantitySelect);
         updateStock(newQuantity, idSelect);
+        updateSales(priceSales, idSelect);
        }
        else {
         console.log("not enough product on stock you can buy maximum "+currentStock);
@@ -108,4 +115,21 @@ function updateStock(newQuantity, idSelect) {
         console.log("The quantity stock is now "+ newQuantity);
     }
     );
+}
+
+// Function to update the product_sales
+function updateSales(priceSales, idSelect) {
+  var query = connection.query("UPDATE products SET ? WHERE ?",
+  [
+    {
+      product_sales: priceSales
+    },
+    {
+      id: idSelect
+    }
+  ],
+  function(err, res) {
+ 
+  }
+  );
 }

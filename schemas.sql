@@ -40,3 +40,35 @@ VALUES ("IMAC", "Electronics", 1600,51);
 INSERT INTO products (product_name, departement_name, price, Stock_quantity)
 VALUES ("Bag", "Lifestyle", 150,18);
 
+
+-- Create Table Department 
+
+USE bamazon;
+
+CREATE TABLE departments(
+    department_id INT NOT NULL AUTO_INCREMENT,
+    department_name VARCHAR(40) NOT NULL,
+    overhead_costs DECIMAL (10,2) NOT NULL,
+    PRIMARY KEY (department_id)
+);
+
+USE bamazon;
+
+INSERT INTO departments (department_name, overhead_costs)
+VALUES ("Electronics", 120000);
+
+INSERT INTO departments (department_name, overhead_costs)
+VALUES ("Lifestyle", 10000);
+
+INSERT INTO departments (department_name, overhead_costs)
+VALUES ("Food", 5000);
+
+-- Put new column to product 
+
+USE bamazon;
+
+ALTER TABLE products
+ADD COLUMN product_sales DECIMAL (10,2) NOT NULL AFTER stock_quantity;
+
+-- Join two table
+

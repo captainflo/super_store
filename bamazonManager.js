@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require ("inquirer");
+var CFonts = require('cfonts');
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -18,6 +19,10 @@ var connection = mysql.createConnection({
   connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
+    CFonts.say("superstore\nManager\naccess", {
+      font: 'chrome',   
+      colors: ['white'],   
+  });
     listMenu();
   });
 
