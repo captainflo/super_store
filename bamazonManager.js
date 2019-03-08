@@ -215,18 +215,20 @@ function askTemToAdd(){
 }
 // function to insert product to Database 
 function NewProduct(name,department,price,quantity){
+    product_sales = 0;
     connection.query(
         "INSERT INTO products SET ?",
         {
           product_name: name,
           departement_name: department,
           price: price,
-          Stock_quantity: quantity
+          Stock_quantity: quantity,
+          product_sales: product_sales
         },
         function(err, res) {
           console.log(name + " product inserted!\n");
           listMenu();
-        }
+        } 
       );
 }
   
